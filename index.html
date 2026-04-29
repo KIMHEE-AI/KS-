@@ -23,6 +23,33 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+  <div id="lock-screen" style="position:fixed;inset:0;background:#f4f6fb;display:flex;align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#fff;border-radius:16px;padding:40px;box-shadow:0 8px 32px rgba(60,80,160,.12);text-align:center;width:320px">
+    <div style="font-size:32px;margin-bottom:16px">🔐</div>
+    <div style="font-size:18px;font-weight:900;color:#1a1f36;margin-bottom:8px">현장 일정 관리</div>
+    <div style="font-size:13px;color:#9aa3c0;margin-bottom:24px">접근 비밀번호를 입력해주세요</div>
+    <input id="lock-pw" type="password" placeholder="비밀번호" onkeydown="if(event.key==='Enter')checkPw()"
+      style="width:100%;padding:11px;border:1px solid #e2e6f0;border-radius:8px;font-size:14px;outline:none;text-align:center;margin-bottom:12px">
+    <div id="lock-err" style="font-size:12px;color:#dc2626;margin-bottom:10px;display:none">비밀번호가 틀렸어요</div>
+    <button onclick="checkPw()" style="width:100%;padding:11px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">확인</button>
+  </div>
+</div>
+<script>
+function checkPw(){
+  if(document.getElementById('lock-pw').value==='47886'){
+    document.getElementById('lock-screen').style.display='none';
+    sessionStorage.setItem('auth','ok');
+  } else {
+    document.getElementById('lock-err').style.display='block';
+    document.getElementById('lock-pw').value='';
+  }
+}
+if(sessionStorage.getItem('auth')==='ok'){
+  document.addEventListener('DOMContentLoaded',()=>{
+    document.getElementById('lock-screen').style.display='none';
+  });
+}
+</script>
 header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:var(--shadow2)}
 .logo{font-size:15px;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:8px;color:var(--text)}
 .logo-icon{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#2563eb,#6d28d9);display:flex;align-items:center;justify-content:center;font-size:14px}
